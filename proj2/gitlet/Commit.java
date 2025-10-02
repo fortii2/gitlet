@@ -1,26 +1,54 @@
 package gitlet;
 
-// TODO: any imports you need here
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashMap;
 
-import java.util.Date; // TODO: You'll likely use this in this class
-
-/** Represents a gitlet commit object.
- *  TODO: It's a good idea to give a description here of what else this Class
- *  does at a high level.
+/**
+ * Represents a gitlet commit object.
  *
- *  @author TODO
+ * @author Ethan
  */
-public class Commit {
-    /**
-     * TODO: add instance variables here.
-     *
-     * List all instance variables of the Commit class here with a useful
-     * comment above them describing what that variable represents and how that
-     * variable is used. We've provided one example for `message`.
-     */
+public class Commit implements Serializable, Dumpable {
 
-    /** The message of this Commit. */
+    /**
+     * The message of this Commit.
+     */
     private String message;
+
+    /**
+     * The Date of this commit.
+     */
+    private Date timestamp;
+
+    /**
+     * files this commit contains.
+     */
+    private HashMap<String, String> trackedFiles;
+
+    /**
+     * parent pointer.
+     */
+    private Commit parent;
+
+    public static Commit initCommit() {
+        Commit initCommit = new Commit();
+
+        initCommit.message = GitletConstants.INIT_COMMIT_MESSAGE.getValue();
+        initCommit.timestamp = new Date(0);
+        initCommit.trackedFiles = new HashMap<>();
+        initCommit.parent = null;
+
+        return initCommit;
+    }
+
+    @Override
+    public void dump() {
+        System.out.println("message: " + message);
+        System.out.println("commitTime: " + timestamp);
+        System.out.println("files: " + trackedFiles);
+        System.out.println("parentCommit: " + parent);
+    }
 
     /* TODO: fill in the rest of this class. */
 }
